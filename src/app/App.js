@@ -1,24 +1,22 @@
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import './App.css';
-import {Deck} from '../components/deck';
+import Layout from '../pages/Layout';
+import Home from '../pages/Home';
+import Cards from '../pages/Cards';
+import Error404 from '../pages/Error404';
 
 function App() {
-  const deck = new Deck();
-  const randomCard = deck.getRandomCard();
-  const randomCardSVG = randomCard.svg;
-  console.log(randomCard.rank);
-  console.log(randomCard.suit);
-  console.log(randomCard.svg);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={randomCardSVG} className="App-logo" alt="ace of spades" />
-        <p>
-          It do be a spinning card.
-        </p>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="cards" element={<Cards />} />
+          <Route path="*" element={<Error404 />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 
